@@ -37,9 +37,9 @@ function render() {
 
       // Überprüfe den Zustand des Feldes und setze das Symbol entsprechend
       if (fields[index] == "circle") {
-        symbol = "o";
+        symbol = generateCircleSVG(); //
       } else if (fields[index] == "cross") {
-        symbol = "x";
+        symbol = generateCrossSVG(); //generateCrossSVG()
       }
 
       // Füge die Zelle mit dem entsprechenden Symbol zum HTML-Code hinzu
@@ -53,4 +53,59 @@ function render() {
 
   // Setze den generierten HTML-Code in das contentDiv
   contentDiv.innerHTML = tableHtml;
+}
+/*  */
+
+function generateCircleSVG() {
+  const color = "#00B0EF";
+  const width = 70;
+  const height = 70;
+  const svgHtml = /* HTML */ `
+    <svg width="${width}" height="${height}">
+      <circle
+        cx="${width / 2}"
+        cy="${height / 2}"
+        r="${width / 2 - 2}"
+        stroke="${color}"
+        stroke-width="2"
+        fill="none"
+      />
+    </svg>
+  `;
+  return svgHtml;
+}
+
+/*  */
+function generateCrossSVG() {
+  const color = "#fFC000";
+  const width = 70;
+  const height = 70;
+  const svgHtml = /* HTML */ `
+    <svg width="${width}" height="${height}">
+      <line
+        x1="0"
+        y1="0"
+        x2="${width}"
+        y2="${height}"
+        stroke="${color}"
+        stroke-width="5"
+      >
+        <animate attributeName="x2" values="0; ${width}" dur="200ms" />
+        <animate attributeName="y2" values="0; ${height}" dur="200ms" />
+      </line>
+
+      <line
+        x1="${width}"
+        y1="0"
+        x2="0"
+        y2="${height}"
+        stroke="${color}"
+        stroke-width="5"
+      >
+        <animate attributeName="x2" values="${width}; 0" dur="200ms" />
+        <animate attributeName="y2" values="0; ${height}" dur="200ms" />
+      </line>
+    </svg>
+  `;
+  return svgHtml;
 }
